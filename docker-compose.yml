@@ -1,0 +1,15 @@
+services:
+  postgres_eigen:
+    image: postgres:15
+    container_name: postgres_eigen
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: eigen_test_case
+    volumes:
+      - postgres_eigen_data:/var/lib/postgresql/data
+    
+volumes:
+  postgres_eigen_data:
