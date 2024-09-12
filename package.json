@@ -9,6 +9,9 @@
         "start": "node dist/server.js",
         "dev": "nodemon --watch src --ext ts --exec ts-node --ignore '*.test.ts' --delay 3 src/server.ts"
     },
+    "prisma": {
+        "seed": "ts-node prisma/seeder/seed.ts"
+    },
     "jest": {
         "transform": {
             "^.+\\.[t|j]sx?$": "babel-jest"
