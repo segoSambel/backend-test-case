@@ -19,3 +19,12 @@ model Member {
 
     @@map("members")
 }
+
+model Book {
+    code   String @id @db.VarChar(8)
+    title  String
+    author String
+    stock  Int
+
+    @@map("books")
+}
