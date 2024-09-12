@@ -12,3 +12,10 @@ datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
 }
+
+model Member {
+    code String @id @db.Char(4)
+    name String
+
+    @@map("members")
+}
