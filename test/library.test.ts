@@ -11,4 +11,8 @@ describe('GET /api/books', () => {
         expect(response.status).toBe(200);
         expect(response.body).toBeDefined();
     });
+
+    it('should show only available books', async () => {
+
+    });
 });
