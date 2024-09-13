@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response} from "express";
-import {GetAllBooks} from "../../application/usecases/book/GetAllBooks";
+import {GetAllBooks} from "../usecases/book/GetAllBooks";
 import {BookResponse} from "../resources/BookResponse";
 
 export class BookController {
