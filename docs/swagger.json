@@ -1,0 +1,231 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Eigen Library API Documentation",
+        "version": "1.0.0",
+        "description": "Eigen Library API documentation using Swagger"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000"
+        }
+    ],
+    "paths": {
+        "/api/borrow": {
+            "post": {
+                "summary": "Borrow a book",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "memberCode": {
+                                        "type": "string",
+                                        "example": "M001"
+                                    },
+                                    "bookCode": {
+                                        "type": "string",
+                                        "example": "SHR-1"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Book borrowed successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Book borrowed successfully"
+                                        },
+                                        "bookCode": {
+                                            "type": "string",
+                                            "example": "SHR-1"
+                                        },
+                                        "dueDate": {
+                                            "type": "string",
+                                            "format": "date",
+                                            "example": "2024-09-19"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error during borrowing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cannot borrow more than 2 books"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/return": {
+            "post": {
+                "summary": "Return a borrowed book",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "memberCode": {
+                                        "type": "string",
+                                        "example": "M001"
+                                    },
+                                    "bookCode": {
+                                        "type": "string",
+                                        "example": "SHR-1"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Book returned successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Book returned successfully"
+                                        },
+                                        "bookCode": {
+                                            "type": "string",
+                                            "example": "SHR-1"
+                                        },
+                                        "penalty": {
+                                            "type": "boolean",
+                                            "example": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error returning book",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cannot return book you did not borrow"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/books": {
+            "get": {
+                "summary": "Get all books and quantities",
+                "responses": {
+                    "200": {
+                        "description": "List of all books",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "bookCode": {
+                                                "type": "string",
+                                                "example": "SHR-1"
+                                            },
+                                            "title": {
+                                                "type": "string",
+                                                "example": "A Study in Scarlet"
+                                            },
+                                            "author": {
+                                                "type": "string",
+                                                "example": "Arthur Conan Doyle"
+                                            },
+                                            "stock": {
+                                                "type": "integer",
+                                                "example": 1
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/members": {
+            "get": {
+                "summary": "Get all members",
+                "responses": {
+                    "200": {
+                        "description": "List of all members",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "memberCode": {
+                                                "type": "string",
+                                                "example": "M001"
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "John Doe"
+                                            },
+                                            "borrowedBookTotal": {
+                                                "type": "number",
+                                                "example": 2
+                                            },
+                                            "penaltyStatus": {
+                                                "type": "boolean",
+                                                "example": false
+                                            },
+                                            "penaltyEndDate": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "2024-09-15"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
