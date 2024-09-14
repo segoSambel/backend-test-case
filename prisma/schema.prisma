@@ -14,17 +14,30 @@ datasource db {
 }
 
 model Member {
-    code String @id @db.Char(4)
-    name String
+    code   String   @id @db.Char(4)
+    name   String
+    Borrow Borrow[]
 
     @@map("members")
 }
 
 model Book {
-    code   String @id @db.VarChar(8)
+    code   String   @id @db.VarChar(8)
     title  String
     author String
     stock  Int
+    Borrow Borrow[]
 
     @@map("books")
+}
+
+model Borrow {
+    id         Int      @id @default(autoincrement())
+    bookCode   String
+    memberCode String
+    borrowDate DateTime
+    returnDate DateTime
+
+    Book   Book   @relation(fields: [bookCode], references: [code])
+    Member Member @relation(fields: [memberCode], references: [code])
 }
