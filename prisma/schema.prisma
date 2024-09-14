@@ -14,9 +14,10 @@ datasource db {
 }
 
 model Member {
-    code   String   @id @db.Char(4)
-    name   String
-    Borrow Borrow[]
+    code           String    @id @db.Char(4)
+    name           String
+    penaltyEndDate DateTime?
+    Borrow         Borrow[]
 
     @@map("members")
 }
@@ -32,12 +33,15 @@ model Book {
 }
 
 model Borrow {
-    id         Int      @id @default(autoincrement())
-    bookCode   String
-    memberCode String
-    borrowDate DateTime
-    returnDate DateTime
+    id           Int       @id @default(autoincrement())
+    bookCode     String    @db.VarChar(8)
+    memberCode   String    @db.Char(4)
+    borrowDate   DateTime
+    dueDate      DateTime
+    returnedDate DateTime?
 
     Book   Book   @relation(fields: [bookCode], references: [code])
     Member Member @relation(fields: [memberCode], references: [code])
+
+    @@map("borrows")
 }
