@@ -1,6 +1,5 @@
-import {Request, Response, NextFunction} from "express";
-import {GetAllMember} from "../usecases/member/GetAllMember";
-import {MemberResponse} from "../resources/MemberResponse";
+import { NextFunction, Request, Response } from "express";
+import { GetAllMember } from "../usecases/member/GetAllMember";
 
 export class MemberController {
     constructor(private getAllMember: GetAllMember) {
@@ -8,7 +7,7 @@ export class MemberController {
 
     async getAll(req: Request, res: Response, next: NextFunction) {
         try {
-            const members = (await this.getAllMember.execute()).map(m => new MemberResponse(m.code, m.name, m.borrowedBookTotal, m.penaltyStatus, m.penaltyEndDate));
+            const members = await this.getAllMember.execute();
             res.status(200).json(members);
         } catch (e) {
             next(e)

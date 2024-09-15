@@ -1,7 +1,7 @@
-import {Router} from 'express';
-import {BookRepository} from "../../infrastructure/persistence/BookRepository";
-import {BookController} from "../controllers/BookController";
-import {GetAllBooks} from "../usecases/book/GetAllBooks";
+import { Router } from 'express';
+import { BookRepository } from "../../infrastructure/persistence/BookRepository";
+import { BookController } from "../controllers/BookController";
+import { GetAllBooks } from "../usecases/book/GetAllBooks";
 
 const router = Router();
 const bookRepository = new BookRepository();
