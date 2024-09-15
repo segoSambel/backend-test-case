@@ -69,7 +69,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Cannot borrow more than 2 books"
+                                            "example": "Member has borrowed maximum amount of book"
                                         }
                                     }
                                 }
