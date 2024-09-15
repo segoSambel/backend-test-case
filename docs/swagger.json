@@ -45,15 +45,6 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Book borrowed successfully"
-                                        },
-                                        "bookCode": {
-                                            "type": "string",
-                                            "example": "SHR-1"
-                                        },
-                                        "dueDate": {
-                                            "type": "string",
-                                            "format": "date",
-                                            "example": "2024-09-19"
                                         }
                                     }
                                 }
@@ -113,14 +104,6 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Book returned successfully"
-                                        },
-                                        "bookCode": {
-                                            "type": "string",
-                                            "example": "SHR-1"
-                                        },
-                                        "penalty": {
-                                            "type": "boolean",
-                                            "example": false
                                         }
                                     }
                                 }
@@ -136,7 +119,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Cannot return book you did not borrow"
+                                            "example": "Borrow not found, this member did not borrow this book"
                                         }
                                     }
                                 }
@@ -205,18 +188,14 @@
                                                 "type": "string",
                                                 "example": "John Doe"
                                             },
-                                            "borrowedBookTotal": {
-                                                "type": "number",
-                                                "example": 2
-                                            },
-                                            "penaltyStatus": {
-                                                "type": "boolean",
-                                                "example": false
-                                            },
                                             "penaltyEndDate": {
                                                 "type": "string",
                                                 "format": "date",
                                                 "example": "2024-09-15"
+                                            },
+                                            "borrowedBooks": {
+                                                "type": "number",
+                                                "example": 2
                                             }
                                         }
                                     }

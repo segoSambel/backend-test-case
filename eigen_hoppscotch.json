@@ -1,0 +1,67 @@
+{
+    "v": 3,
+    "name": "eigen",
+    "folders": [],
+    "requests": [
+        {
+            "v": "7",
+            "endpoint": "http://localhost:3000/api/borrow",
+            "name": "BorrowBook",
+            "params": [],
+            "headers": [],
+            "method": "POST",
+            "auth": { "authType": "inherit", "authActive": true },
+            "preRequestScript": "",
+            "testScript": "",
+            "body": {
+                "contentType": "application/json",
+                "body": "{\n  \"bookCode\": \"NRN-7\",\n  \"memberCode\": \"M001000\"\n  \n}"
+            },
+            "requestVariables": []
+        },
+        {
+            "v": "7",
+            "endpoint": "http://localhost:3000/api/members",
+            "name": "GetMembers",
+            "params": [],
+            "headers": [],
+            "method": "GET",
+            "auth": { "authType": "inherit", "authActive": true },
+            "preRequestScript": "",
+            "testScript": "",
+            "body": { "contentType": null, "body": null },
+            "requestVariables": []
+        },
+        {
+            "v": "7",
+            "endpoint": "http://localhost:3000/api/return",
+            "name": "ReturnBook",
+            "params": [],
+            "headers": [],
+            "method": "POST",
+            "auth": { "authType": "inherit", "authActive": true },
+            "preRequestScript": "",
+            "testScript": "",
+            "body": {
+                "contentType": "application/json",
+                "body": "{\n  \"bookCode\": \"NRN-7\",\n  \"memberCode\": \"M002\"\n}"
+            },
+            "requestVariables": []
+        },
+        {
+            "v": "7",
+            "endpoint": "http://localhost:3000/api/books",
+            "name": "GetBooks",
+            "params": [],
+            "headers": [],
+            "method": "GET",
+            "auth": { "authType": "inherit", "authActive": true },
+            "preRequestScript": "",
+            "testScript": "",
+            "body": { "contentType": null, "body": null },
+            "requestVariables": []
+        }
+    ],
+    "headers": [],
+    "auth": { "authType": "none", "authActive": true }
+}
