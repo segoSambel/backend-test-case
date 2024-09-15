@@ -205,7 +205,7 @@ describe('POST /api/borrow', () => {
         logger.debug(response.body);
         expect(response.status).toBe(400);
         expect(response.body).toBeDefined();
-        expect(response.body.errors).toBe('Member has borrowed maximum amount of  book');
+        expect(response.body.errors).toBe('Member has borrowed maximum amount of book');
     });
 
     it('should fail to borrow a book when member is penalized', async () => {
@@ -221,5 +221,81 @@ describe('POST /api/borrow', () => {
         expect(response.status).toBe(400);
         expect(response.body).toBeDefined();
         expect(response.body.errors).toBe('Member is penalized');
+    });
+});
+
+describe('POST /api/return', () => {
+
+    beforeEach(async () => {
+        await MemberTestUtil.createMembers();
+        await BookTestUtil.createBooks();
+        await BorrowTestUtil.createBorrows('M01T', 'B01T');
+    });
+
+    afterEach(async () => {
+        await BorrowTestUtil.deleteBorrows();
+        await MemberTestUtil.deleteMembers();
+        await BookTestUtil.deleteBooks();
+    });
+
+    it('should success to return a book', async () => {
+        const response = await supertest(app)
+            .post('/api/return')
+            .send({
+                memberCode: 'M01T',
+                bookCode: 'B01T'
+            });
+
+        logger.debug(response.body);
+        expect(response.status).toBe(200);
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toBe('Book returned successfully');
+    });
+
+    it('should fail to return a book when book is not borrowed by member', async () => {
+        const response = await supertest(app)
+            .post('/api/return')
+            .send({
+                memberCode: 'M01T',
+                bookCode: 'B02T'
+            });
+
+        logger.debug(response.body);
+        expect(response.status).toBe(400);
+        expect(response.body).toBeDefined();
+        expect(response.body.errors).toBe('Borrow not found, this member did not borrow this book');
+    });
+
+    it('should penalize member when return a book after due date', async () => {
+        await prismaClient.borrow.findFirst({
+            where: {
+                bookCode: 'B01T',
+                memberCode: 'M01T'
+            }
+        }).then(async (borrow) => {
+            await prismaClient.borrow.update({
+                where: {
+                    id: borrow?.id
+                },
+                data: {
+                    dueDate: new Date('2021-01-01')
+                }
+            });
+        });
+
+        const response = await supertest(app)
+            .post('/api/return')
+            .send({
+                memberCode: 'M01T',
+                bookCode: 'B01T'
+            });
+
+        logger.debug(response.body);
+        expect(response.status).toBe(200);
+        expect(response.body).toBeDefined();
+        expect(response.body.message).toBe('Book returned successfully');
+
+        const member = await MemberTestUtil.findMemberByCode('M01T');
+        expect(member?.penaltyEndDate).toBeDefined();
     });
 });

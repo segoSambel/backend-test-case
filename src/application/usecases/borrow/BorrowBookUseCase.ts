@@ -29,7 +29,7 @@ export class BorrowBookUseCase {
         }
 
         if (!member.hasMaximumBorrowedBooks()) {
-            throw new ResponseError(400, 'Member has borrowed maximum amount of  book');
+            throw new ResponseError(400, 'Member has borrowed maximum amount of book');
         }
 
         if (member.isPenalized()) {

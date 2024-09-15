@@ -14,7 +14,7 @@ export class ReturnBookUseCase {
         const borrow = await this.borrowRepository.findBorrow(bookCode, memberCode);
 
         if (!borrow) {
-            throw new ResponseError(404, 'Borrow not found, this member did not borrow this book');
+            throw new ResponseError(400, 'Borrow not found, this member did not borrow this book');
         }
 
         borrow.returnBook()
